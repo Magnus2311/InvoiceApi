@@ -5,7 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InvoiceApi.Common\InvoiceApi.Common.csproj" />
+    <ProjectReference Include="..\InvoiceApi.Database\InvoiceApi.Database.csproj" />
+    <ProjectReference Include="..\InvoiceApi.Infrastructure\InvoiceApi.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

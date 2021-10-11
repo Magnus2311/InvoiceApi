@@ -1,23 +1,20 @@
+using AutoMapper;
 using InvoiceApi.Common.Interfaces;
 using InvoiceApi.Common.Services;
 using InvoiceApi.Database;
 using InvoiceApi.Database.Interfaces;
 using InvoiceApi.Database.Reporsitories;
+using InvoiceApi.Infrastructure.Profiles;
 using InvoiceApi.Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace InvoiceApi
 {
@@ -34,15 +31,35 @@ namespace InvoiceApi
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddCors();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(option =>
+            {
+                option.SlidingExpiration = true;
+            });
+
             services.AddDbContext<InvoiceDbContext>();
             services.AddControllers();
+           
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "InvoiceApi", Version = "v1" });
             });
             RegisterServices(services);
+            ConfigureAutoMapper(services);
         }
 
+        private void ConfigureAutoMapper(IServiceCollection services)
+        {
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new UserProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+        }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -64,6 +81,19 @@ namespace InvoiceApi
             {
                 endpoints.MapControllers();
             });
+
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "../../Invoice";
+                if (env.IsDevelopment())
+                {
+                    spa.UseReactDevelopmentServer(npmScript: "start");
+                }
+            });
+
+            app.UseCors(
+                options => options.WithOrigins("https://localhost:44398/", "https://localhost:5001/").AllowAnyMethod()
+            );
 
             var dbContext = new InvoiceDbContext();
             dbContext.Database.Migrate();

@@ -28,6 +28,11 @@ namespace InvoiceApi.Controllers
             emailsService = _emailsService;
             tokenizer = _tokenizer;
         }
+        [HttpGet]
+        public string Get()
+        {
+            return "Working";
+        }
 
         [HttpPost("add")]
         public async Task Add(UserDTO user)

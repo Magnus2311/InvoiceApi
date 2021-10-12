@@ -98,11 +98,10 @@ namespace InvoiceApi.Controllers
         }
 
         [HttpPost("sendSecondaryConfirmationEmail")]
-        public async Task SecondaryConfirmationEmail(string email)
-        {
-            var host = Request.Host.ToString();
-            var token = tokenizer.CreateRegistrationToken(email);
-            await emailsService.ReSendRegistrationEmail(Request.Host.ToString(), email, token);
+        public async Task SecondaryConfirmationEmail(UserDTO user)
+        {   
+            var token = tokenizer.CreateRegistrationToken(user.Username);
+            await emailsService.SendRegistrationEmail(Request.Host.ToString(), user.Username, token, user.Template);
         }
 
         [HttpPost("sendResetPasswordEmail")]

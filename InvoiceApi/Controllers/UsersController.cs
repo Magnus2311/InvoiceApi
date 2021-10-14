@@ -1,7 +1,7 @@
 ﻿using InvoiceApi.Common.Interfaces;
 using InvoiceApi.Common.Models.Database;
+using InvoiceApi.Helpers.Attributes;
 using InvoiceApi.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -98,11 +98,10 @@ namespace InvoiceApi.Controllers
         }
 
         [HttpPost("sendSecondaryConfirmationEmail")]
-        public async Task SecondaryConfirmationEmail(string email)
-        {
-            var host = Request.Host.ToString();
-            var token = tokenizer.CreateRegistrationToken(email);
-            await emailsService.ReSendRegistrationEmail(Request.Host.ToString(), email, token);
+        public async Task SecondaryConfirmationEmail(UserDTO user)
+        {   
+            var token = tokenizer.CreateRegistrationToken(user.Username);
+            await emailsService.SendRegistrationEmail(Request.Host.ToString(), user.Username, token, user.Template);
         }
 
         [HttpPost("sendResetPasswordEmail")]
@@ -165,7 +164,7 @@ namespace InvoiceApi.Controllers
             {
                 Expires = DateTime.Now.AddHours(1),
             };
-            Response.Cookies.Append("refresh_token", accessToken, cookieOptions);
+            Response.Cookies.Append("access_token", accessToken, cookieOptions);
         }
 
         public class ChangePassParams

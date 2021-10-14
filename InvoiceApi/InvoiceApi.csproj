@@ -20,4 +20,8 @@
     <ProjectReference Include="..\InvoiceApi.Infrastructure\InvoiceApi.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Images\" />
+  </ItemGroup>
+
 </Project>

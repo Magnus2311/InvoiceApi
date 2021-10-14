@@ -38,10 +38,10 @@ namespace InvoiceApi.Common.Services
         {
             var message = new MailMessage(FROM_EMAIL, email)
             {
-                Subject = "Welcome to Life Mode"
+                Subject = "Welcome to Invoice"
             };
             message.IsBodyHtml = true;
-            message.AlternateViews.Add(GetEmbeddedImage("./Images/logo_transparent.png", template, token));
+            message.AlternateViews.Add(GetEmbeddedImage("./Images/invoice.png", template, token));
 
             await _smtpClient.SendMailAsync(message);
         }
@@ -53,7 +53,7 @@ namespace InvoiceApi.Common.Services
                 Subject = "Reset password for Invoice"
             };
             message.IsBodyHtml = true;
-            message.AlternateViews.Add(GetEmbeddedImage("./Images/logo_transparent.png", template, token));
+            message.AlternateViews.Add(GetEmbeddedImage("./Images/invoice.png", template, token));
 
             await _smtpClient.SendMailAsync(message);
         }
@@ -64,7 +64,7 @@ namespace InvoiceApi.Common.Services
             res.ContentType = new ContentType()
             {
                 MediaType = "image/png",
-                Name = "logo_transparent.png"
+                Name = "invoice.png"
             };
             res.ContentId = Guid.NewGuid().ToString();
             string htmlBody = string.Format(template, res.ContentId, token);

@@ -21,7 +21,9 @@ namespace InvoiceApi.Infrastructure.Services
 
         public User UserDTOToUser(UserDTO userDTO)
         {
-            return _mapper.Map<User>(userDTO);
+            var user = _mapper.Map<User>(userDTO);
+            return user;
+
         }
 
         public UserDTO UserToUserDTO(User user)

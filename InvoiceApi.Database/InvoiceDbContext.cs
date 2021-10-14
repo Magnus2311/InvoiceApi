@@ -12,10 +12,17 @@ namespace InvoiceApi.Database
     {
         
         public DbSet<User> Users { get; set; }
+        public DbSet<Item> Items { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder);
+            builder
+                .Entity<User>()
+                .HasMany(u => u.Items)
+                .WithOne(d => d.User)
+                .HasForeignKey(d => d.UserId);
 
+            base.OnModelCreating(builder);
         }
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {

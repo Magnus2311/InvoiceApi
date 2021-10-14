@@ -55,6 +55,7 @@ namespace InvoiceApi
             var mappingConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new UserProfile());
+                mc.AddProfile(new ItemProfile());
             });
 
             IMapper mapper = mappingConfig.CreateMapper();
@@ -106,6 +107,9 @@ namespace InvoiceApi
             services.AddScoped<ITokenizer, Tokenizer>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IEmailsService, GmailSmtpEmailsService>();
+            services.AddScoped<IItemService, ItemService>();
+            services.AddScoped<IItemRepository, ItemRepository>();
+            services.AddScoped<IMapItemService, MapItemService>();
         }
     }
 }

@@ -1,10 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using InvoiceApi.Database.Models.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InvoiceApi.Database.Models
 {
@@ -38,5 +36,7 @@ namespace InvoiceApi.Database.Models
         [NotMappedAttribute]
         public string Template { get; set; }
         public virtual List<Item> Items { get; set; } = new List<Item>();
+
+        public Company MyCompany { get; set; }
     }
 }

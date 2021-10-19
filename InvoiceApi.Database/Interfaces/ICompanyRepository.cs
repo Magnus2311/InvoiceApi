@@ -2,7 +2,7 @@
 
 namespace InvoiceApi.Database.Interfaces
 {
-    public interface IItemRepository : IRepository<Item>
+    public interface ICompanyRepository : IRepository<Company>
     {
     }
 }

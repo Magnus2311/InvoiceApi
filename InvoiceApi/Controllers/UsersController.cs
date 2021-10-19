@@ -49,19 +49,26 @@ namespace InvoiceApi.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserDTO user)
         {
-            var isSuccessful = await userService.Login(user);
-            if (isSuccessful)
+            try
             {
-                var token = tokenizer.GenerateUserJwtToken(user);
-                var refreshToken = tokenizer.GenerateUserJwtToken(user, true);
-                user.RefreshTokens.Add(refreshToken);
-                await userService.UpdateRefreshToken(user);
-                SetAccessTokenInCookie(token);
-                SetRefreshTokenInCookie(refreshToken);
+                var isSuccessful = await userService.Login(user);
+                if (isSuccessful)
+                {
+                    var token = tokenizer.GenerateUserJwtToken(user);
+                    var refreshToken = tokenizer.GenerateUserJwtToken(user, true);
+                    user.RefreshTokens.Add(refreshToken);
+                    await userService.UpdateRefreshToken(user);
+                    SetAccessTokenInCookie(token);
+                    SetRefreshTokenInCookie(refreshToken);
 
-                return Ok(new AuthenticateResponse(user, token.ToString()));
+                    return Ok(new AuthenticateResponse(user, token.ToString()));
+                }
+                return Unauthorized();
             }
-            return Unauthorized();
+            catch
+            {
+                return Unauthorized();
+            }
         }
 
         [HttpGet("getUsername")]

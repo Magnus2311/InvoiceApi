@@ -1,10 +1,6 @@
 ﻿using InvoiceApi.Common.Interfaces;
 using InvoiceApi.Common.Models.Database;
 using InvoiceApi.Database.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace InvoiceApi.Common.Services
@@ -29,12 +25,12 @@ namespace InvoiceApi.Common.Services
 
         public async Task Update(ItemDTO item)
         {
-            await itemRepository.UpdateItem(mapItemService.ItemDTOToItem(item));
+            await itemRepository.Update(mapItemService.ItemDTOToItem(item));
         }
 
         public void Delete(int id)
         {
-            itemRepository.Delete(id);
+            itemRepository.Delete(id.ToString());
         }
     }
 }

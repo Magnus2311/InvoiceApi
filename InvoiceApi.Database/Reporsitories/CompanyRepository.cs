@@ -3,7 +3,7 @@ using InvoiceApi.Database.Models;
 
 namespace InvoiceApi.Database.Reporsitories
 {
-    public class ItemRepository : BaseRepository<Item>, IItemRepository
+    public class CompanyRepository : BaseRepository<Company>, ICompanyRepository
     {
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace InvoiceApi.Common.Models.Database
 {
-    public class BankAccountDTO
+    public class MyCompanyBankAccountDTO
     {
         public string BankName { get; set; }
         public string SwiftCode { get; set; }

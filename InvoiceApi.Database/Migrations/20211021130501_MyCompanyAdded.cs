@@ -2,24 +2,16 @@
 
 namespace InvoiceApi.Database.Migrations
 {
-    public partial class AddedCompany : Migration
+    public partial class MyCompanyAdded : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<string>(
-                name: "Id",
-                table: "Items",
-                type: "nvarchar(450)",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "int")
-                .OldAnnotation("SqlServer:Identity", "1, 1");
-
             migrationBuilder.CreateTable(
-                name: "Company",
+                name: "MyCompany",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Bulstat = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     VatNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -28,9 +20,9 @@ namespace InvoiceApi.Database.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Company", x => x.Id);
+                    table.PrimaryKey("PK_MyCompany", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Company_Users_UserId",
+                        name: "FK_MyCompany_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -38,7 +30,7 @@ namespace InvoiceApi.Database.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Addres",
+                name: "MyCompanyAddress",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -47,77 +39,68 @@ namespace InvoiceApi.Database.Migrations
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CompanyId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    CompanyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Addres", x => x.Id);
+                    table.PrimaryKey("PK_MyCompanyAddress", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Addres_Company_CompanyId",
+                        name: "FK_MyCompanyAddress_MyCompany_CompanyId",
                         column: x => x.CompanyId,
-                        principalTable: "Company",
+                        principalTable: "MyCompany",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "BankAccount",
+                name: "MyCompanyBankAccount",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     BankName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SwiftCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IBAN = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CompanyId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    CompanyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BankAccount", x => x.Id);
+                    table.PrimaryKey("PK_MyCompanyBankAccount", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BankAccount_Company_CompanyId",
+                        name: "FK_MyCompanyBankAccount_MyCompany_CompanyId",
                         column: x => x.CompanyId,
-                        principalTable: "Company",
+                        principalTable: "MyCompany",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Addres_CompanyId",
-                table: "Addres",
-                column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_BankAccount_CompanyId",
-                table: "BankAccount",
-                column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Company_UserId",
-                table: "Company",
+                name: "IX_MyCompany_UserId",
+                table: "MyCompany",
                 column: "UserId",
                 unique: true,
                 filter: "[UserId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MyCompanyAddress_CompanyId",
+                table: "MyCompanyAddress",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MyCompanyBankAccount_CompanyId",
+                table: "MyCompanyBankAccount",
+                column: "CompanyId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Addres");
+                name: "MyCompanyAddress");
 
             migrationBuilder.DropTable(
-                name: "BankAccount");
+                name: "MyCompanyBankAccount");
 
             migrationBuilder.DropTable(
-                name: "Company");
-
-            migrationBuilder.AlterColumn<int>(
-                name: "Id",
-                table: "Items",
-                type: "int",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(450)")
-                .Annotation("SqlServer:Identity", "1, 1");
+                name: "MyCompany");
         }
     }
 }

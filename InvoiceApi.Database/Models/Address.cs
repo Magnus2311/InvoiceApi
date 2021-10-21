@@ -2,7 +2,7 @@
 
 namespace InvoiceApi.Database.Models
 {
-    public class Addres
+    public class MyCompanyAddress
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
@@ -12,7 +12,7 @@ namespace InvoiceApi.Database.Models
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
 
-        public string CompanyId { get; set; }
-        public Company Company { get; set; }
+        public int CompanyId { get; set; }
+        public MyCompany Company { get; set; }
     }
 }

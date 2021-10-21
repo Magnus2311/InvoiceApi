@@ -2,7 +2,7 @@
 
 namespace InvoiceApi.Database.Models
 {
-    public class BankAccount
+    public class MyCompanyBankAccount
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
@@ -10,7 +10,7 @@ namespace InvoiceApi.Database.Models
         public string SwiftCode { get; set; }
         public string IBAN { get; set; }
 
-        public string CompanyId { get; set; }
-        public Company Company { get; set; }
+        public int CompanyId { get; set; }
+        public MyCompany Company { get; set; }
     }
 }

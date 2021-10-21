@@ -37,6 +37,6 @@ namespace InvoiceApi.Database.Models
         public string Template { get; set; }
         public virtual List<Item> Items { get; set; } = new List<Item>();
 
-        public Company MyCompany { get; set; }
+        public MyCompany MyCompany { get; set; }
     }
 }

@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using InvoiceApi.Common.Interfaces.Mappers;
 
 namespace InvoiceApi
 {
@@ -56,6 +57,7 @@ namespace InvoiceApi
             {
                 mc.AddProfile(new UserProfile());
                 mc.AddProfile(new ItemProfile());
+                mc.AddProfile(new MyCompanyProfile());
             });
 
             IMapper mapper = mappingConfig.CreateMapper();
@@ -110,6 +112,9 @@ namespace InvoiceApi
             services.AddScoped<IItemService, ItemService>();
             services.AddScoped<IItemRepository, ItemRepository>();
             services.AddScoped<IMapItemService, MapItemService>();
+            services.AddScoped<IMapMyCompanyService, MapMyCompanyService>();
+            services.AddScoped<IMyCompanyService, MyCompanyService>();
+            services.AddScoped<IMyCompanyRepository, MyCompanyRepository>();
         }
     }
 }

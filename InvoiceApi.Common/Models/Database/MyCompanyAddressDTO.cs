@@ -1,6 +1,6 @@
 ﻿namespace InvoiceApi.Common.Models.Database
 {
-    public class AddressDTO
+    public class MyCompanyAddressDTO
     {
         public string Country { get; set; }
         public string City { get; set; }

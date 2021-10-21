@@ -28,13 +28,13 @@ namespace InvoiceApi.Database
                 .WithOne(mc => mc.User);
 
             builder
-                .Entity<Company>()
+                .Entity<MyCompany>()
                 .HasMany(mc => mc.Addresses)
                 .WithOne(a => a.Company)
                 .HasForeignKey(a => a.CompanyId);
 
             builder
-                .Entity<Company>()
+                .Entity<MyCompany>()
                 .HasMany(mc => mc.BankAccounts)
                 .WithOne(ba => ba.Company)
                 .HasForeignKey(ba => ba.CompanyId);

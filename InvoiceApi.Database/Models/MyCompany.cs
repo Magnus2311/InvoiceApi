@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InvoiceApi.Database.Models
 {
-    public class Company : IEntity
+    public class MyCompany : IEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -13,8 +13,8 @@ namespace InvoiceApi.Database.Models
         public string VatNumber { get; set; }
         public string Manager { get; set; }
 
-        public List<Addres> Addresses { get; set; } = new();
-        public List<BankAccount> BankAccounts { get; set; } = new();
+        public List<MyCompanyAddress> Addresses { get; set; } = new();
+        public List<MyCompanyBankAccount> BankAccounts { get; set; } = new();
 
         public string UserId { get; set; }
         public User User { get; set; }

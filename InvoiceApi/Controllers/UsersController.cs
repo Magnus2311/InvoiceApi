@@ -1,4 +1,5 @@
-﻿using InvoiceApi.Common.Interfaces;
+﻿using InvoiceApi.Common.Helpers;
+using InvoiceApi.Common.Interfaces;
 using InvoiceApi.Common.Models.Database;
 using InvoiceApi.Helpers.Attributes;
 using InvoiceApi.Models;
@@ -49,7 +50,8 @@ namespace InvoiceApi.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserDTO user)
         {
-            var isSuccessful = await userService.Login(user);
+            GlobalHelpers.CurrentUser = user;
+            var isSuccessful = await userService.Login();
             if (isSuccessful)
             {
                 var token = tokenizer.GenerateUserJwtToken(user);
@@ -126,10 +128,9 @@ namespace InvoiceApi.Controllers
         [Authorize]
         public async Task<IActionResult> ChangePassword(ChangePassParams passes)
         {
-            var user = await userService.FindByUsernameAsync(HttpContext.User.Identity.Name);
-            user.Password = passes.OldPassword;
-            if (await userService.Login(user))
-                if (await userService.TryChangePasswordAsync(user, passes.NewPassword))
+            GlobalHelpers.CurrentUser.Password = passes.OldPassword;
+            if (await userService.Login())
+                if (await userService.TryChangePasswordAsync(passes.NewPassword))
                     return Ok();
 
             return BadRequest();
@@ -141,8 +142,8 @@ namespace InvoiceApi.Controllers
             if (!tokenizer.ValidateToken(passes.Token)) return BadRequest();
 
             var username = tokenizer.DecodeToken(passes.Token).ToDictionary(x => x.Key, x => x.Value)[ClaimTypes.Email];
-            var user = await userService.FindByUsernameAsync(username);
-            if (await userService.TryChangePasswordAsync(user, passes.NewPassword))
+            GlobalHelpers.CurrentUser = await userService.FindByUsernameAsync(username);
+            if (await userService.TryChangePasswordAsync(passes.NewPassword))
                 return Ok();
 
             return BadRequest();

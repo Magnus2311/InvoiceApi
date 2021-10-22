@@ -14,8 +14,8 @@ namespace InvoiceApi.Common.Interfaces
         Task Delete(string username);
         Task<UserDTO> FindByUsernameAsync(string username);
         Task<List<UserDTO>> GetAll();
-        Task<bool> Login(UserDTO user);
-        Task<bool> TryChangePasswordAsync(UserDTO user, string newPassword);
+        Task<bool> Login();
+        Task<bool> TryChangePasswordAsync(string newPassword);
         Task UpdateRefreshToken(UserDTO user);
     }
 }

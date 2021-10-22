@@ -59,6 +59,7 @@ namespace InvoiceApi.Database.Reporsitories
         {
             var dbUser = await FindByUsernameAsync(user.Username);
             return _hasher.VerifyPassword(dbUser.Password, user.Password) && dbUser.IsConfirmed;
+
         }
 
         public async Task<bool> TryChangePasswordAsync(User user, string newPassword)

@@ -1,5 +1,7 @@
-﻿using InvoiceApi.Common.Interfaces;
+﻿using InvoiceApi.Common.Helpers;
+using InvoiceApi.Common.Interfaces;
 using InvoiceApi.Common.Models.Database;
+using InvoiceApi.Common.Models.Filter;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -25,21 +27,17 @@ namespace InvoiceApi.Controllers
             return "Working";
         }
 
+
+        [HttpGet("all")]
+        public async Task<IEnumerable<ItemDTO>> GetAllItems(string name, string code, string measure, string account, decimal? fromAmount, decimal? toAmount)
+        {
+            return await itemService.GetAllItemsAsync();
+        }
+
         [HttpPost("add")]
         public async Task<ItemDTO> Add(ItemDTO item)
         {
-            item.UserId = "e5dccffc-c4d8-4cba-a886-7ef49f4bdd8a";
-            if (ModelState.IsValid)
-            {
-                await itemService.Add(item);
-                return item;
-            }
-            throw new Exception();
-        }
-        [HttpPost]
-        public async Task<ItemDTO> Post(ItemDTO item)
-        {
-            
+            item.UserId = GlobalHelpers.CurrentUser.Id;
             if (ModelState.IsValid)
             {
                 await itemService.Add(item);

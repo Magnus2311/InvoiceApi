@@ -1,5 +1,6 @@
 ﻿using InvoiceApi.Common.Interfaces;
 using InvoiceApi.Common.Models.Database;
+using InvoiceApi.Common.Models.Filter;
 using InvoiceApi.Database.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,18 @@ namespace InvoiceApi.Common.Services
         public void Delete(int id)
         {
             itemRepository.Delete(id);
+        }
+
+        public async Task<IEnumerable<ItemDTO>> GetAllItemsAsync()
+        {
+            var items = await itemRepository.GetAllItems();
+            return mapItemService.ListItemToListItemDTO(items);
+        }
+
+        public async Task<List<ItemDTO>> GetFilteredItemsAsync(ItemsFilterDTO filter)
+        {
+            var items = await itemRepository.GetFilteredItems(filter.Name,filter.Code,filter.Account,filter.FromAmount, filter.ToAmount, filter.Measure);
+            return mapItemService.ListItemToListItemDTO(items);
         }
     }
 }

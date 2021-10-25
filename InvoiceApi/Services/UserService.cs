@@ -1,4 +1,5 @@
-﻿using InvoiceApi.Common.Interfaces;
+﻿using InvoiceApi.Common.Helpers;
+using InvoiceApi.Common.Interfaces;
 using InvoiceApi.Common.Models.Database;
 using InvoiceApi.Database.Interfaces;
 using System;
@@ -48,14 +49,14 @@ namespace InvoiceApi.Common.Services
             return mapUserService.ListUserToListUserDTO(users);
         }
 
-        public async Task<bool> Login(UserDTO user)
+        public async Task<bool> Login()
         {
-            return await userRepository.Login(mapUserService.UserDTOToUser(user));
+            return await userRepository.Login(mapUserService.UserDTOToUser(GlobalHelpers.CurrentUser));
         }
 
-        public async Task<bool> TryChangePasswordAsync(UserDTO user, string newPassword)
+        public async Task<bool> TryChangePasswordAsync(string newPassword)
         {
-            return await userRepository.TryChangePasswordAsync(mapUserService.UserDTOToUser(user), newPassword);
+            return await userRepository.TryChangePasswordAsync(mapUserService.UserDTOToUser(GlobalHelpers.CurrentUser), newPassword);
         }
 
         public async Task UpdateRefreshToken(UserDTO user)

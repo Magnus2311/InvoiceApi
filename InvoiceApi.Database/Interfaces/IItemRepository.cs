@@ -1,4 +1,6 @@
 ﻿using InvoiceApi.Database.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace InvoiceApi.Database.Interfaces
 {

@@ -48,21 +48,21 @@ namespace InvoiceApi.Controllers
             => await userService.Delete(username);
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(UserDTO user)
+        public async Task<IActionResult> Login()
         {
             try
             {
-                var isSuccessful = await userService.Login(user);
+                var isSuccessful = await userService.Login();
                 if (isSuccessful)
                 {
-                    var token = tokenizer.GenerateUserJwtToken(user);
-                    var refreshToken = tokenizer.GenerateUserJwtToken(user, true);
-                    user.RefreshTokens.Add(refreshToken);
-                    await userService.UpdateRefreshToken(user);
+                    var token = tokenizer.GenerateUserJwtToken(GlobalHelpers.CurrentUser);
+                    var refreshToken = tokenizer.GenerateUserJwtToken(GlobalHelpers.CurrentUser, true);
+                    GlobalHelpers.CurrentUser.RefreshTokens.Add(refreshToken);
+                    await userService.UpdateRefreshToken(GlobalHelpers.CurrentUser);
                     SetAccessTokenInCookie(token);
                     SetRefreshTokenInCookie(refreshToken);
 
-                    return Ok(new AuthenticateResponse(user, token.ToString()));
+                    return Ok(new AuthenticateResponse(GlobalHelpers.CurrentUser, token.ToString()));
                 }
                 return Unauthorized();
             }

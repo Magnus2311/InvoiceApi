@@ -2,9 +2,10 @@
 using InvoiceApi.Common.Models.Database;
 using InvoiceApi.Common.Models.Filter;
 using InvoiceApi.Database.Interfaces;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace InvoiceApi.Common.Services
+namespace InvoiceApi.Services
 {
     public class ItemService : IItemService
     {

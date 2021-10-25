@@ -5,7 +5,7 @@ using InvoiceApi.Common.Models.Database;
 using InvoiceApi.Database.Interfaces;
 using System.Threading.Tasks;
 
-namespace InvoiceApi.Common.Services
+namespace InvoiceApi.Services
 {
     public class MyCompanyService : IMyCompanyService
     {

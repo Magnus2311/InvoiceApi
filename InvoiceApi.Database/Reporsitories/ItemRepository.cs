@@ -1,5 +1,9 @@
 ﻿using InvoiceApi.Database.Interfaces;
 using InvoiceApi.Database.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace InvoiceApi.Database.Reporsitories
 {

@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using InvoiceApi.Common.Interfaces.Mappers;
+using InvoiceApi.Services;
 
 namespace InvoiceApi
 {
@@ -102,7 +103,7 @@ namespace InvoiceApi
             dbContext.Database.Migrate();
         }
 
-        private void RegisterServices(IServiceCollection services)
+        private static void RegisterServices(IServiceCollection services)
         {
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IMapUserService, MapUserService>();

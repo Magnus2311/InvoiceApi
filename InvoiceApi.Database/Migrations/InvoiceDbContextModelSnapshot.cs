@@ -79,14 +79,15 @@ namespace InvoiceApi.Database.Migrations
                         .IsUnique()
                         .HasFilter("[UserId] IS NOT NULL");
 
-                    b.ToTable("MyCompany");
+                    b.ToTable("MyCompanies");
                 });
 
             modelBuilder.Entity("InvoiceApi.Database.Models.MyCompanyAddress", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
@@ -94,46 +95,47 @@ namespace InvoiceApi.Database.Migrations
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("MyCompanyId")
+                        .HasColumnType("int");
+
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyId");
+                    b.HasIndex("MyCompanyId");
 
                     b.ToTable("MyCompanyAddress");
                 });
 
             modelBuilder.Entity("InvoiceApi.Database.Models.MyCompanyBankAccount", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("BankName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("IBAN")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MyCompanyId")
+                        .HasColumnType("int");
 
                     b.Property<string>("SwiftCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyId");
+                    b.HasIndex("MyCompanyId");
 
                     b.ToTable("MyCompanyBankAccount");
                 });
@@ -184,24 +186,24 @@ namespace InvoiceApi.Database.Migrations
 
             modelBuilder.Entity("InvoiceApi.Database.Models.MyCompanyAddress", b =>
                 {
-                    b.HasOne("InvoiceApi.Database.Models.MyCompany", "Company")
+                    b.HasOne("InvoiceApi.Database.Models.MyCompany", "MyCompany")
                         .WithMany("Addresses")
-                        .HasForeignKey("CompanyId")
+                        .HasForeignKey("MyCompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Company");
+                    b.Navigation("MyCompany");
                 });
 
             modelBuilder.Entity("InvoiceApi.Database.Models.MyCompanyBankAccount", b =>
                 {
-                    b.HasOne("InvoiceApi.Database.Models.MyCompany", "Company")
+                    b.HasOne("InvoiceApi.Database.Models.MyCompany", "MyCompany")
                         .WithMany("BankAccounts")
-                        .HasForeignKey("CompanyId")
+                        .HasForeignKey("MyCompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Company");
+                    b.Navigation("MyCompany");
                 });
 
             modelBuilder.Entity("InvoiceApi.Database.Models.MyCompany", b =>

@@ -28,9 +28,9 @@ namespace InvoiceApi.Common.Services
             await itemRepository.Update(mapItemService.ItemDTOToItem(item));
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            itemRepository.Delete(id.ToString());
+            await itemRepository.Delete(id.ToString());
         }
     }
 }

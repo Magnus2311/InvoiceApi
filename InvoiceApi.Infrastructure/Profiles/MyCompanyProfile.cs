@@ -10,6 +10,12 @@ namespace InvoiceApi.Infrastructure.Profiles
         {
             CreateMap<MyCompanyDTO, MyCompany>();
             CreateMap<MyCompany, MyCompanyDTO>();
+
+            CreateMap<MyCompanyAddressDTO, MyCompanyAddress>();
+            CreateMap<MyCompanyAddress, MyCompanyAddressDTO>();
+
+            CreateMap<MyCompanyBankAccountDTO, MyCompanyBankAccount>();
+            CreateMap<MyCompanyBankAccount, MyCompanyBankAccountDTO>();
         }
     }
 }

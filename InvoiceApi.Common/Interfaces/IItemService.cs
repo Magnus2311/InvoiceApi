@@ -11,6 +11,6 @@ namespace InvoiceApi.Common.Interfaces
     {
         Task Add(ItemDTO item);
         Task Update(ItemDTO item);
-        void Delete(int id);
+        Task Delete(int id);
     }
 }

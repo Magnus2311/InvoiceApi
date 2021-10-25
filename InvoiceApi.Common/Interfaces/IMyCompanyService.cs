@@ -6,5 +6,6 @@ namespace InvoiceApi.Common.Interfaces
     public interface IMyCompanyService
     {
         Task Update(MyCompanyDTO companyDTO);
+        Task<MyCompanyDTO> Get();
     }
 }

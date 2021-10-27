@@ -3,7 +3,6 @@ using InvoiceApi.Common.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
@@ -57,8 +56,7 @@ namespace InvoiceApi.Helpers.Attributes
 
             try
             {
-                SecurityToken validatedToken;
-                IPrincipal principal = tokenHandler.ValidateToken(authToken, validationParameters, out validatedToken);
+                IPrincipal principal = tokenHandler.ValidateToken(authToken, validationParameters, out var validatedToken);
                 _context.HttpContext.User = (ClaimsPrincipal)principal;
                 var user = await userService.FindByUsernameAsync(_context.HttpContext.User.Identity.Name);
                 GlobalHelpers.CurrentUser = user;
@@ -70,13 +68,20 @@ namespace InvoiceApi.Helpers.Attributes
             }
         }
 
-        private void SetAccessToken(string accessToken, AuthorizationFilterContext context)
+        private static void SetAccessToken(string accessToken, AuthorizationFilterContext context)
         {
-            var cookieOptions = new CookieOptions
+            try
             {
-                Expires = DateTime.Now.AddHours(1),
-            };
-            context.HttpContext.Response.Cookies.Append("access_token", accessToken, cookieOptions);
+                var cookieOptions = new CookieOptions
+                {
+                    Expires = DateTime.Now.AddHours(1),
+                };
+                context.HttpContext.Response.Cookies.Append("access_token", accessToken, cookieOptions);
+            }
+            catch
+            {
+                //TO DO: Добавяне на _logger
+            }
         }
     }
 }

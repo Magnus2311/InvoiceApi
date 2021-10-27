@@ -2,13 +2,10 @@
 using InvoiceApi.Common.Interfaces;
 using InvoiceApi.Common.Models.Database;
 using InvoiceApi.Database.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace InvoiceApi.Common.Services
+namespace InvoiceApi.Services
 {
     public class UserService : IUserService
     {

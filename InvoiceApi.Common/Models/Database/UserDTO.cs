@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InvoiceApi.Common.Models.Database
 {
@@ -39,5 +36,6 @@ namespace InvoiceApi.Common.Models.Database
 
         [NotMappedAttribute]
         public string Template { get; set; }
+        public MyCompanyDTO MyCompany { get; set; }
     }
 }

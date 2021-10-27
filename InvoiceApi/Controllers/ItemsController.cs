@@ -50,10 +50,10 @@ namespace InvoiceApi.Controllers
         public async Task Put(ItemDTO item) => await itemService.Update(item);
 
         [HttpDelete]
-        public async Task<ItemDTO> Delete(ItemDTO item)
+        public async Task Delete(int id)
         { 
-            await itemService.Delete(item.Id);
-            return item;
+            await itemService.Delete(id);
+         
         }
     }
 }

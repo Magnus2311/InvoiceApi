@@ -32,7 +32,7 @@ namespace InvoiceApi.Services
 
         public async Task Delete(int id)
         {
-            await itemRepository.Delete(id.ToString());
+            await itemRepository.Delete(id);
         }
 
         public async Task<IEnumerable<ItemDTO>> GetAllItemsAsync()

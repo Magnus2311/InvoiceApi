@@ -23,7 +23,7 @@ namespace InvoiceApi.Database.Reporsitories
             await context.SaveChangesAsync();
         }
 
-        public async Task Delete(string id)
+        public async Task Delete(int id)
         {
             var context = new InvoiceDbContext();
             var entity = await context.FindAsync<TEntity>(id);

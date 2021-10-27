@@ -10,7 +10,7 @@ namespace InvoiceApi.Database.Interfaces
         Task<T> Get(string id);
         Task Add(T entity);
         Task Update(T entity);
-        Task Delete(string id);
+        Task Delete(int id);
         Task AddOrUpdate(T Entity);
     }
 }

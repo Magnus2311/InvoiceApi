@@ -29,7 +29,7 @@ namespace InvoiceApi.Controllers
 
 
         [HttpGet("all")]
-        public async Task<IEnumerable<ItemDTO>> GetAllItems(string name, string code, string measure, string account, decimal? fromAmount, decimal? toAmount)
+        public async Task<IEnumerable<ItemDTO>> GetAllItems()
         {
             return await itemService.GetAllItemsAsync();
         }

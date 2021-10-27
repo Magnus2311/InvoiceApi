@@ -11,7 +11,7 @@ namespace InvoiceApi.Database.Interfaces
     {
         Task Add(Item item);
         Task UpdateItem(Item item);
-        void Delete(int id);
+        Task Delete(int id);
         Task<List<Item>> GetAllItems();
         Task<List<Item>> GetFilteredItems(string name, string code, string account, decimal fromPrice, decimal toPrice, string measure);
     }

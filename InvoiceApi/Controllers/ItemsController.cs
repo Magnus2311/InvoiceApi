@@ -29,7 +29,7 @@ namespace InvoiceApi.Controllers
 
 
         [HttpGet("all")]
-        public async Task<IEnumerable<ItemDTO>> GetAllItems(string name, string code, string measure, string account, decimal? fromAmount, decimal? toAmount)
+        public async Task<IEnumerable<ItemDTO>> GetAllItems()
         {
             return await itemService.GetAllItemsAsync();
         }
@@ -50,6 +50,10 @@ namespace InvoiceApi.Controllers
         public async Task Put(ItemDTO item) => await itemService.Update(item);
 
         [HttpDelete]
-        public async Task Delete(int id) => itemService.Delete(id);
+        public async Task<ItemDTO> Delete(ItemDTO item)
+        { 
+            await itemService.Delete(item.Id);
+            return item;
+        }
     }
 }

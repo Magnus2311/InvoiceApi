@@ -33,9 +33,9 @@ namespace InvoiceApi.Common.Services
             await itemRepository.UpdateItem(mapItemService.ItemDTOToItem(item));
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            itemRepository.Delete(id);
+            await itemRepository.Delete(id);
         }
 
         public async Task<IEnumerable<ItemDTO>> GetAllItemsAsync()

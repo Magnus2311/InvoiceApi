@@ -22,6 +22,11 @@ namespace InvoiceApi.Services
         public async Task<MyCompanyDTO> Get()
             => _mapper.MapMyCompanyToDTO(await _repository.GetByUserId(GlobalHelpers.CurrentUser.Id));
 
+        public Task<MyCompanyDTO> SearchByBulstat(string bulstat)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public async Task Update(MyCompanyDTO myCompanyDTO)
         {
             var myCompany = _mapper.MapMyCompanyDTO(myCompanyDTO);

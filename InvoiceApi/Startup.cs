@@ -116,6 +116,7 @@ namespace InvoiceApi
             services.AddScoped<IMapMyCompanyService, MapMyCompanyService>();
             services.AddScoped<IMyCompanyService, MyCompanyService>();
             services.AddScoped<IMyCompanyRepository, MyCompanyRepository>();
+            services.AddScoped<IBulstatService, BulstatService>();
         }
     }
 }

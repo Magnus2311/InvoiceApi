@@ -13,12 +13,19 @@ namespace InvoiceApi.Database
         
         public DbSet<User> Users { get; set; }
         public DbSet<Item> Items { get; set; }
+        public DbSet<Partner> Partners { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder
                 .Entity<User>()
                 .HasMany(u => u.Items)
+                .WithOne(d => d.User)
+                .HasForeignKey(d => d.UserId);
+
+            builder
+                .Entity<User>()
+                .HasMany(u => u.Partners)
                 .WithOne(d => d.User)
                 .HasForeignKey(d => d.UserId);
 

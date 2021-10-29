@@ -4,14 +4,16 @@ using InvoiceApi.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace InvoiceApi.Database.Migrations
 {
     [DbContext(typeof(InvoiceDbContext))]
-    partial class InvoiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211024142343_MyCompanyAdded")]
+    partial class MyCompanyAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -140,47 +142,6 @@ namespace InvoiceApi.Database.Migrations
                     b.ToTable("MyCompanyBankAccount");
                 });
 
-            modelBuilder.Entity("InvoiceApi.Database.Models.Partner", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ContactName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EIK")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsVat")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NameInOtherLanguage")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("VatNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Partners");
-                });
-
             modelBuilder.Entity("InvoiceApi.Database.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -254,22 +215,11 @@ namespace InvoiceApi.Database.Migrations
                     b.Navigation("BankAccounts");
                 });
 
-            modelBuilder.Entity("InvoiceApi.Database.Models.Partner", b =>
-                {
-                    b.HasOne("InvoiceApi.Database.Models.User", "User")
-                        .WithMany("Partners")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("InvoiceApi.Database.Models.User", b =>
                 {
                     b.Navigation("Items");
 
                     b.Navigation("MyCompany");
-
-                    b.Navigation("Partners");
                 });
 #pragma warning restore 612, 618
         }

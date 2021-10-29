@@ -2,13 +2,10 @@
 using InvoiceApi.Common.Models.Database;
 using InvoiceApi.Common.Models.Filter;
 using InvoiceApi.Database.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace InvoiceApi.Common.Services
+namespace InvoiceApi.Services
 {
     public class ItemService : IItemService
     {
@@ -30,7 +27,7 @@ namespace InvoiceApi.Common.Services
 
         public async Task Update(ItemDTO item)
         {
-            await itemRepository.UpdateItem(mapItemService.ItemDTOToItem(item));
+            await itemRepository.Update(mapItemService.ItemDTOToItem(item));
         }
 
         public async Task Delete(int id)

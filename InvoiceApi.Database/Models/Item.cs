@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using InvoiceApi.Database.Models.Interfaces;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InvoiceApi.Database.Models
 {
-    public class Item
+    public class Item : IEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }

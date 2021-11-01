@@ -33,5 +33,9 @@ namespace InvoiceApi.Controllers
             var myCompany = await _myCompanyService.Get();
             return Ok(myCompany);
         }
+
+        [HttpGet("search-by-bulstat")]
+        public async Task<IActionResult> SearchByBulstat(string bulstat)
+            => Ok(await _myCompanyService.SearchByBulstat(bulstat));
     }
 }

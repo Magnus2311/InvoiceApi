@@ -3,10 +3,8 @@ using System.Threading.Tasks;
 
 namespace InvoiceApi.Common.Interfaces
 {
-    public interface IMyCompanyService
+    public interface IBulstatService
     {
-        Task Update(MyCompanyDTO companyDTO);
-        Task<MyCompanyDTO> Get();
         Task<MyCompanyDTO> SearchByBulstat(string bulstat);
     }
 }
